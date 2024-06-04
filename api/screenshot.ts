@@ -6,7 +6,7 @@ const puppeteer = require('puppeteer-core')
 //   if (!process.env.NODE_ENV) {
 //     return `http://localhost:3000/${hash}`
 //   }
-  
+
 //   return `https://image.w.kodadot.xyz/ipfs/${path}/${hash}`
 // }
 
@@ -20,7 +20,6 @@ const puppeteer = require('puppeteer-core')
 // 	width?: number;
 // 	height?: number;
 // }
-
 
 const performCanvasCapture = async (page: any, canvasSelector: string) => {
   try {
@@ -66,6 +65,7 @@ export default async (req: any, res: any) => {
   let browser
 
   if (isProd) {
+    console.log('path', await chrome.executablePath())
     browser = await puppeteer.launch({
       args: chrome.args,
       defaultViewport: chrome.defaultViewport,
@@ -89,11 +89,11 @@ export default async (req: any, res: any) => {
 
   console.log('url', url)
 
-  await page.goto(url);
+  await page.goto(url)
 
-  const selector = 'canvas';
+  const selector = 'canvas'
 
-  await page.waitForSelector(selector);
+  await page.waitForSelector(selector)
 
   const element = await performCanvasCapture(page, selector) // const element = page.$(selector)
 
